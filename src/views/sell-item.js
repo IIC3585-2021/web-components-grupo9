@@ -96,7 +96,6 @@ class SellItem extends LitElement {
             discountAmount: {type: String},
             rating: { type: String },
             price: { type: String },
-            oldPrice: { type: String },
             src: { type: String },
             href: { type: String },
 
@@ -114,19 +113,10 @@ class SellItem extends LitElement {
         this.discountAmount = '';
         this.rating = '';
         this.price = '';
-        this.oldPrice = '';
         this.src = '';
         this.href = '';
     }
 
-
-
-    updateDiscount() {
-        let normalPrice = Number(this.oldPrice);
-        let actualPrice = Number(this.price);
-        let calculatedDiscount = Math.trunc((1 - (actualPrice / normalPrice)) * 100);
-        this.$discountAmount= '-' + calculatedDiscount.toString() + '%';
-    }
 
 
 
