@@ -93,11 +93,13 @@ class SellItem extends LitElement {
         return {
             name: { type: String },
             discount: { type: String },
-            discountAmount: {type: String},
             rating: { type: String },
             price: { type: String },
+            oldprice: { type: String},
             src: { type: String },
             href: { type: String },
+            auto: { type: Boolean },
+            nodiscount: { type: Boolean }
 
         }
     }
@@ -110,15 +112,18 @@ class SellItem extends LitElement {
         super();
         this.name = '';
         this.discount = '';
-        this.discountAmount = '';
         this.rating = '';
         this.price = '';
+        this.oldprice = '';
         this.src = '';
         this.href = '';
+        this.auto = false;
+        this.nodiscount = false;
     }
 
-
-
+    calculateDiscount() {
+      return (Math.trunc((1 - (parseInt(this.price) / parseInt(this.oldprice)))* 100))
+    }
 
     render() {
         return html`
@@ -132,24 +137,24 @@ class SellItem extends LitElement {
 
 
 
-        ${this.discount === 'true' ? html`
+        ${!this.nodiscount ? html`
             <div class="precio-actual-group">
-              <h2 class="precio-actual-item" id="precio-actual">${parseInt(this.price) * (1-(parseInt(this.discountAmount)/100))}</h2>
+              <h2 class="precio-actual-item" id="precio-actual">${this.oldprice}</h2>
               <span style="display:inline-block; width: 23%;"></span>
               <div id="descuento" class="precio-actual-item">
-                    <h4 id="cant-descuento">${this.discountAmount} %</h4>
+                    <h4 id="cant-descuento">${this.auto ? this.calculateDiscount() : this.discount} %</h4>
               </div>
             </div>
             <br>
             <div class="precio-anterior-group">
-            <p class="normal">Normal: </p> <p id="precio-anterior" class="precio-anterior"> ${this.price}</p>
+            <p class="normal">Normal: </p> <p id="precio-anterior" class="precio-anterior">$${this.price}</p>
             </div>
           
           `: html`
 
             <div>
             <div class="precio-actual-group">
-            <h2 class="precio-actual-item" id="precio-actual">${this.price}</h2>
+            <h2 class="precio-actual-item" id="precio-actual">$${this.price}</h2>
               <span style="display:inline-block; width: 23%;"></span>
             </div>
           

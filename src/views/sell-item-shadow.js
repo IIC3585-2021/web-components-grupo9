@@ -152,7 +152,7 @@ class Card extends HTMLElement {
     }
   
     connectedCallback() {
-      if (this.hasAttribute('no-discount')) {
+      if (this.hasAttribute('nodiscount')) {
         this.updateNoDiscount();
       }
       else {
@@ -251,4 +251,4 @@ class Card extends HTMLElement {
     }
   }
 
-window.customElements.define('sell-item', Card);
+window.customElements.define('sell-item-shadow', Card);
