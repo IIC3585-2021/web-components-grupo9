@@ -1,6 +1,7 @@
 # LitElement tutorial starter
 
-* Agregar archivo ``*.js`` de componentes en ``src/views``
+* Agregar archivo ``*.js`` del componente en ``src/views``
+    * (independiente de si se utiliza shadow o lit-element)
 * Hacer el import de ese archivo en ``src/index.js``
 * Utilizar el componente libremente en ``src/index.html``
 
