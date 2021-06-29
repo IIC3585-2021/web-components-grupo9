@@ -26,7 +26,7 @@ template.innerHTML = /*html*/`
         <div class="container">
             <div class = "in">
                 <input placeholder="Agrega un to do" class="input-button">
-                <button class="add-button"></button>
+                <button class="add-button"> Agregar </button>
             </div>
             <div class="todo">
             </div>
@@ -44,8 +44,8 @@ class ToDoList extends HTMLElement {
         button.addEventListener('click', this.addToDo.bind( this ))
     }
     addToDo() {
-        var div = document.createElement( 'div' );
-        div.textContent = this.shadowRoot.querySelector( 'input' ).value;
+        var div = document.createElement( 'todo-item-shadow' );
+        div.setAttribute('content',  this.shadowRoot.querySelector( 'input' ).value)
         this.shadowRoot.querySelector('input').value = '';
         this.shadowRoot.querySelector('.todo').appendChild(div);
     }
