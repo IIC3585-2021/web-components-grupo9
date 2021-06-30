@@ -5,27 +5,29 @@ template.innerHTML = /*html*/`
         .container {
             display: flex;
             flex-direction: column;
+            width: 500px;
         }
         .add-button {
             margin-left: 10px
         }
-        .input-button {
-            width: 200px
+        .input {
+            width: 450px
         }
         .todo {
             display: flex;
             flex-direction: column;
         }
-        .in {
+        .input-div {
             display: flex;
+            justify-content: space-between;
         }
     </style>
     <div>
         <h3>To Do List</h3>
         <h4></h4>
         <div class="container">
-            <div class = "in">
-                <input placeholder="Agrega un to do" class="input-button">
+            <div class = "input-div">
+                <input placeholder="Agrega un to do" class="input">
                 <button class="add-button"> Agregar </button>
             </div>
             <div class="todo">
@@ -40,8 +42,6 @@ class ToDoList extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.appendChild(template.content.cloneNode(true));
         this.shadowRoot.querySelector('h4').innerText = 'Para que te organices, ' + this.getAttribute('name');
-        const button = this.shadowRoot.querySelector('button');
-        button.addEventListener('click', this.addToDo.bind( this ))
     }
     addToDo() {
         var div = document.createElement( 'todo-item-shadow' );
@@ -50,7 +50,8 @@ class ToDoList extends HTMLElement {
         this.shadowRoot.querySelector('.todo').appendChild(div);
     }
     connectedCallback(){
-        
+        const button = this.shadowRoot.querySelector('button');
+        button.addEventListener('click', this.addToDo.bind( this ))
     }
     disconnectedCallback(){
 
