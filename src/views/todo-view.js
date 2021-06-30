@@ -15,15 +15,32 @@ class TodoView extends LitElement {
         return {
           todos: { type: Array },
           filter: { type: String },
-          task: { type: String }
+          task: { type: String },
+          firstitem: { type: String },
+          seconditem: { type: String },
+          thirditem: { type: String }
         };
       }
 
   constructor() { 
         super();
-        this.todos = [];
+        this.todos = this.getInicialToDos();
         this.filter = VisibilityFilters.SHOW_ALL;
         this.task = '';
+    }
+
+    getInicialToDos() {
+      let initialTodos = [];
+      let names = ["first", "second", "third"]
+      names.forEach(name => {
+        if (this.getAttribute(name + "item")){
+          initialTodos.push({ 
+            task: this.getAttribute(name + "item"),
+            complete: false
+        })
+        }
+      })
+      return initialTodos
     }
 
   addTodo() {
@@ -55,6 +72,15 @@ class TodoView extends LitElement {
 
   render() {
     return html`
+      <style>
+        .todo-item {
+          text-align: left;
+        }
+
+        .todo-element {
+          display: inline-block;
+        }
+      </style>
       <div class="input-layout" @keyup="${this.shortcutListener}">
         <input placeholder="Task" value="${this.task}" @change="${this.updateTask}">
         <button @click="${this.addTodo}">
@@ -65,8 +91,8 @@ class TodoView extends LitElement {
       ${this.todos.filter(todo => !todo.complete).map(
         todo => html` 
           <div class="todo-item">
-          <p>${todo.task}</p>
-            <input type="checkbox"
+          <p class="todo-element">${todo.task}</p>
+            <input class="todo-element" type="checkbox"
               ?checked="${todo.complete}" 
               @change="${ e => this.updateTodoStatus(todo, e.target.checked)}"> 
           </div>
