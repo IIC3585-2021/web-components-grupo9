@@ -130,7 +130,7 @@ class SellItem extends LitElement {
 
 
         <div class="card">
-        <a href="#"></a>
+        <a href="${this.href}"></a>
             <img src="${this.src}" alt="Avatar" style="width:100%">
             <div class="container">
               <p id="nombre-producto">${this.name}</p>

@@ -1,11 +1,33 @@
-import { LitElement, html } from 'lit-element'; 
+import { LitElement, html, css } from 'lit-element'; 
 
 
-const VisibilityFilters = { 
-    SHOW_ALL: 'All',
-    SHOW_ACTIVE: 'Active',
-    SHOW_COMPLETED: 'Completed'
-  };
+  const style = css`
+  
+  .todo-item {
+    text-align: left;
+  }
+
+  .todo-element {
+    display: inline-block;
+  }
+
+  #search-button, .remove-button {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border-color: transparent;
+    fill: transparent;
+    background-color: transparent;
+  }
+      
+  #search-button, svg, .remove-button {
+    width: 20px;
+    height: 20px;
+  }
+  #search-button:hover, .remove-button:hover svg {
+    filter: invert(27%) sepia(31%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+  }
+  `
 
 
 class TodoView extends LitElement { 
@@ -14,23 +36,27 @@ class TodoView extends LitElement {
   static get properties() { 
         return {
           todos: { type: Array },
-          filter: { type: String },
           task: { type: String },
           firstitem: { type: String },
           seconditem: { type: String },
           thirditem: { type: String },
           placeholder: { type: String },
-          title: { type: String}
+          title: { type: String},
+          name: { type: String}
         };
       }
+
+  static get styles() {
+        return [style];
+    }
 
   constructor() { 
         super();
         this.todos = this.getInicialToDos();
-        this.filter = VisibilityFilters.SHOW_ALL;
         this.task = '';
         this.placeholder = 'Add a new Task';
         this.title = 'My Tasks'
+        this.name = '';
     }
 
     
@@ -96,34 +122,9 @@ class TodoView extends LitElement {
 
   render() {
     return html`
-      <style>
-        .todo-item {
-          text-align: left;
-        }
-
-        .todo-element {
-          display: inline-block;
-        }
-
-        #search-button, .remove-button {
-          width: 35px;
-          height: 35px;
-          text-align: center;
-          border-color: transparent;
-          fill: transparent;
-          background-color: transparent;
-        }
-            
-        #search-button, svg, .remove-button {
-          width: 20px;
-          height: 20px;
-        }
-        #search-button:hover, .remove-button:hover svg {
-          filter: invert(27%) sepia(31%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
-        }
-      </style>
       <div class="title-div">
       <h2>${this.title}</h2>
+      <h4>Para que te organices, ${this.name}</h4>
       </div>
       <div class="todos-list">
       ${this.todos.filter(todo => !todo.complete).map(
