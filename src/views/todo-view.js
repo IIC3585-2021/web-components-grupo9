@@ -18,7 +18,9 @@ class TodoView extends LitElement {
           task: { type: String },
           firstitem: { type: String },
           seconditem: { type: String },
-          thirditem: { type: String }
+          thirditem: { type: String },
+          placeholder: { type: String },
+          title: { type: String}
         };
       }
 
@@ -27,6 +29,8 @@ class TodoView extends LitElement {
         this.todos = this.getInicialToDos();
         this.filter = VisibilityFilters.SHOW_ALL;
         this.task = '';
+        this.placeholder = 'Add a new Task';
+        this.title = 'My Tasks'
     }
 
     getInicialToDos() {
@@ -98,6 +102,9 @@ class TodoView extends LitElement {
           filter: invert(27%) sepia(31%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
         }
       </style>
+      <div class="title-div">
+      <h2>${this.title}</h2>
+      </div>
       <div class="todos-list">
       ${this.todos.filter(todo => !todo.complete).map(
         todo => html` 
@@ -125,7 +132,7 @@ class TodoView extends LitElement {
       </div>
       <br><br>
       <div class="input-layout" @keyup="${this.shortcutListener}">
-        <input placeholder="Task" value="${this.task}" @change="${this.updateTask}">
+        <input placeholder="${this.placeholder}" value="${this.task}" @change="${this.updateTask}">
         <button @click="${this.addTodo}" class="todo-element" id="search-button">
               <svg id="search-icon" class="search-icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                       viewBox="0 0 96.8 96.8" style="enable-background:new 0 0 96.8 96.8;" xml:space="preserve">
