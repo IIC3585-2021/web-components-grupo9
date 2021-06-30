@@ -7,6 +7,23 @@ import { LitElement, html, css } from 'lit-element';
     text-align: left;
   }
 
+  .todo-div {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 420px;
+    padding: 10px;
+  }
+
+  hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+    background-color:gray;
+  }
+
   .todo-element {
     display: inline-block;
   }
@@ -122,10 +139,12 @@ class TodoView extends LitElement {
 
   render() {
     return html`
+      <div class="todo-div">
       <div class="title-div">
       <h2>${this.title}</h2>
       <h4>Para que te organices, ${this.name}</h4>
       </div>
+      <hr>
       <div class="todos-list">
       ${this.todos.filter(todo => !todo.complete).map(
         todo => html` 
@@ -151,6 +170,7 @@ class TodoView extends LitElement {
       )
     }
       </div>
+      <hr>
       <div class="input-layout" @keyup="${this.shortcutListener}">
         <input placeholder="${this.placeholder}" value="${this.task}" @change="${this.updateTask}">
         <button @click="${this.addTodo}" class="todo-element" id="search-button">
@@ -169,6 +189,7 @@ class TodoView extends LitElement {
                     </g>
               </svg>
               </button>
+      </div>
       </div>
     `;
   }
