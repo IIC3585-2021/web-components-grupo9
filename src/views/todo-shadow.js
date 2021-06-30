@@ -43,15 +43,27 @@ class ToDoList extends HTMLElement {
         this.shadowRoot.appendChild(template.content.cloneNode(true));
         this.shadowRoot.querySelector('h4').innerText = 'Para que te organices, ' + this.getAttribute('name');
     }
-    addToDo() {
+    addToDo(val) {
         var div = document.createElement( 'todo-item-shadow' );
-        div.setAttribute('content',  this.shadowRoot.querySelector( 'input' ).value)
+        div.setAttribute('content',  val)
         this.shadowRoot.querySelector('input').value = '';
         this.shadowRoot.querySelector('.todo').appendChild(div);
     }
+
+    addToDoBind() {
+        const val = this.shadowRoot.querySelector( 'input' ).value;
+        this.addToDo(val);
+    }
     connectedCallback(){
         const button = this.shadowRoot.querySelector('button');
-        button.addEventListener('click', this.addToDo.bind( this ))
+        button.addEventListener('click', this.addToDoBind.bind( this ))
+        const attributeNames = this.getAttributeNames();
+        attributeNames.forEach(attr => {
+            if (attr.includes('item')) {
+                const val = this.getAttribute(attr);
+                this.addToDo(val);
+            }
+        })
     }
     disconnectedCallback(){
 
