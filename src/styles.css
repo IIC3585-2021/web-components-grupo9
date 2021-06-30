@@ -52,3 +52,15 @@ header {
   background: var(--dark-color);
   color: var(--base-color);
 }
+
+h1, h2, h3, h4 {
+  color: blue;
+}
+
+p {
+  background-color: rgb(51, 255, 0);
+}
+
+button {
+  background-color: blueviolet;
+}
