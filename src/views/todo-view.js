@@ -4,12 +4,14 @@ import { LitElement, html, css } from 'lit-element';
   const style = css`
   
   .todo-item {
-    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
   }
 
   .todo-div {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    width: 420px;
+    width: 500px;
     padding: 10px;
   }
 
@@ -26,6 +28,26 @@ import { LitElement, html, css } from 'lit-element';
 
   .todo-element {
     display: inline-block;
+  }
+
+  .butt {
+    position: relative;
+    top: 15px;
+    right: 10px;
+  }
+
+  .butt-plus {
+    position: relative;
+    right: 10px;
+  }
+
+  .input-layout {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .input-layout input {
+    width: 450px;
   }
 
   #search-button, .remove-button {
@@ -95,12 +117,9 @@ class TodoView extends LitElement {
 
     getInicialToDos() {
       let initialTodos = [];
-      console.log("partiendo")
       for (let index = 1; index < 101; index++) {
         let name = 'item' + this.inWords(index);
-        console.log(name);
         if (this.getAttribute(name)){
-          console.log("entrando")
           initialTodos.push({ 
             task: this.getAttribute(name),
             complete: false
@@ -134,7 +153,6 @@ class TodoView extends LitElement {
         this.todos = this.todos.map(todo =>
           updatedTodo === todo ? { ...updatedTodo, complete } : todo
         );
-        console.log(this.todos);
     }
 
   render() {
@@ -149,22 +167,24 @@ class TodoView extends LitElement {
       ${this.todos.filter(todo => !todo.complete).map(
         todo => html` 
           <div class="todo-item">
-          <p class="todo-element">${todo.task}</p>
-            <button class="remove-button" @click="${ () => this.updateTodoStatus(todo, true)}">
-            <svg class="minus-icon" class="search-icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                      viewBox="0 0 96.7 96.7" style="enable-background:new 0 0 96.7 96.7;" xml:space="preserve">
-                  <style type="text/css">
-                    .st0{fill:#010202;}
-                  </style>
-                  <g id="XMLID_1_">
-                    <g id="XMLID_4_">
-                      <path id="XMLID_5_" class="st0" d="M48.1,3.8c-24.9,0-45,20.1-45,45s20.1,45,45,45s45-20.1,45-45S73,3.8,48.1,3.8z M48.2,88.3
-                        c-21.8,0-39.4-17.6-39.5-39.4v-0.1c0-21.7,17.6-39.4,39.4-39.4S87.5,27,87.6,48.8C87.6,70.6,70,88.2,48.2,88.3z M45.3,46l22.5,0
-                        c1.5,0,2.8,1.2,2.8,2.8s-1.3,2.8-2.8,2.8H45.3 M45.3,51.6H28.4c-1.6,0-2.8-1.3-2.8-2.8s1.3-2.8,2.8-2.8h16.9"/>
+            <p class="todo-element">${todo.task}</p>
+            <div class="butt">
+              <button class="remove-button" @click="${ () => this.updateTodoStatus(todo, true)}">
+              <svg class="minus-icon" class="search-icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 96.7 96.7" style="enable-background:new 0 0 96.7 96.7;" xml:space="preserve">
+                    <style type="text/css">
+                      .st0{fill:#010202;}
+                    </style>
+                    <g id="XMLID_1_">
+                      <g id="XMLID_4_">
+                        <path id="XMLID_5_" class="st0" d="M48.1,3.8c-24.9,0-45,20.1-45,45s20.1,45,45,45s45-20.1,45-45S73,3.8,48.1,3.8z M48.2,88.3
+                          c-21.8,0-39.4-17.6-39.5-39.4v-0.1c0-21.7,17.6-39.4,39.4-39.4S87.5,27,87.6,48.8C87.6,70.6,70,88.2,48.2,88.3z M45.3,46l22.5,0
+                          c1.5,0,2.8,1.2,2.8,2.8s-1.3,2.8-2.8,2.8H45.3 M45.3,51.6H28.4c-1.6,0-2.8-1.3-2.8-2.8s1.3-2.8,2.8-2.8h16.9"/>
+                      </g>
                     </g>
-                  </g>
-              </svg>
-            </button>
+                </svg>
+              </button>
+            </div>
           </div>
         `
       )
@@ -173,6 +193,7 @@ class TodoView extends LitElement {
       <hr>
       <div class="input-layout" @keyup="${this.shortcutListener}">
         <input placeholder="${this.placeholder}" value="${this.task}" @change="${this.updateTask}">
+        <div class="butt-plus">
         <button @click="${this.addTodo}" class="todo-element" id="search-button">
               <svg id="search-icon" class="search-icon" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                       viewBox="0 0 96.8 96.8" style="enable-background:new 0 0 96.8 96.8;" xml:space="preserve">
@@ -189,6 +210,7 @@ class TodoView extends LitElement {
                     </g>
               </svg>
               </button>
+        </div>
       </div>
       </div>
     `;

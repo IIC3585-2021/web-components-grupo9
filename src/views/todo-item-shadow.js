@@ -39,14 +39,12 @@ class ToDoItem extends HTMLElement {
     }
 
     attributeChangedCallback(attributeName, oldValue, newValue) {
-        console.log(attributeName, oldValue, newValue)
         if(attributeName === 'content'){
             this.shadowRoot.querySelector('.text-todo').textContent = newValue
         }
     }
 
     delete() {
-        console.log('delete')
         const div = this.shadowRoot.querySelector('.todo-item');
         div.style.display = "none";
     }

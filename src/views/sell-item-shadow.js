@@ -172,7 +172,6 @@ class Card extends HTMLElement {
         let normalPrice = Number(this.oldprice);
         let actualPrice = Number(this.price);
         let calculatedDiscount = Math.trunc((1 - (actualPrice / normalPrice)) * 100);
-        console.log(calculatedDiscount);
         this.$discountAmount.innerHTML = '-' + calculatedDiscount.toString() + '%';
     }
   
